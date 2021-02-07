@@ -21,7 +21,8 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    encrypted_message = encrypt_message(message_params)
+    set_encryptor
+    encrypted_message = encrypt_message(message_params[:text])
     @message = Message.new(text: encrypted_message)
     @key = @encryptor.key
 
@@ -70,7 +71,11 @@ class MessagesController < ApplicationController
     end
 
     def encrypt_message(message)
-      @encryptor = MessageEncryptor.new(message)
+      @encryptor.encrypt(message)
       @encryptor.encrypted_message
+    end
+
+    def set_encryptor
+      @encryptor = MessageEncryptor.new
     end
 end
