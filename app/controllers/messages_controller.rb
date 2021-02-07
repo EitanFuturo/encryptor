@@ -21,11 +21,13 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    @message = Message.new(message_params)
+    encrypted_message = encrypt_message(message_params)
+    @message = Message.new(text: encrypted_message)
+    @key = @encryptor.key
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: "Message was successfully created." }
+        format.html { redirect_to @message, notice: "la clave es: #{@key}" }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -65,5 +67,10 @@ class MessagesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def message_params
       params.require(:message).permit(:text)
+    end
+
+    def encrypt_message(message)
+      @encryptor = MessageEncryptor.new(message)
+      @encryptor.encrypted_message
     end
 end

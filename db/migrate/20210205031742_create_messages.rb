@@ -1,6 +1,7 @@
 class CreateMessages < ActiveRecord::Migration[6.1]
   def change
-    create_table :messages do |t|
+    enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
+    create_table :messages, id: :uuid do |t|
       t.text :text
 
       t.timestamps
