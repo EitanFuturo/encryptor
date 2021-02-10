@@ -1,8 +1,10 @@
 p#notice = notice
 
 p
-  strong Text:
-  = @message.text
+  strong Text: 
+  em
+    | [texto cifrado]
+
 
 => link_to 'Edit', edit_message_path(@message)
 '|

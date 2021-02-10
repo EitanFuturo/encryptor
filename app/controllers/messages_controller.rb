@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_action :set_message, only: %i[ show edit update destroy ]
+  before_action :set_message, only: %i[ show edit update destroy decrypt_message ]
 
   # GET /messages or /messages.json
   def index
@@ -21,14 +21,15 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    set_encryptor
-    encrypted_message = encrypt_message(message_params[:text])
-    @message = Message.new(text: encrypted_message)
-    @key = @encryptor.key
+    encrypted_message = encrypt_message(message_params[:text],
+                                        message_params[:password])
+    iv = encrypted_message[:iv]
+    @message = Message.new(text: encrypted_message[:encrypted_message],
+                           iv: iv)
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: "la clave es: #{@key}" }
+        format.html { redirect_to @message, notice: "Se creó correctamente." }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,6 +60,12 @@ class MessagesController < ApplicationController
     end
   end
 
+  def decrypt_message
+    password = message_params[:password]
+    encryptor = MessageEncryptor.new
+    encryptor.decrypt(@message.text, 'PasswordTest', @message.iv)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_message
@@ -67,15 +74,12 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:text)
+      params.require(:message).permit(:text, :password)
     end
 
-    def encrypt_message(message)
-      @encryptor.encrypt(message)
-      @encryptor.encrypted_message
-    end
-
-    def set_encryptor
-      @encryptor = MessageEncryptor.new
+    def encrypt_message(message, password)
+      encryptor = MessageEncryptor.new
+      encryptor.encrypt(message, password)
+      { encrypted_message: encryptor.encrypted_message, iv: encryptor.iv }
     end
 end
