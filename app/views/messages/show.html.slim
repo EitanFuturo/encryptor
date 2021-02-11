@@ -1,9 +1,8 @@
 p#notice = notice
 
 p
-  strong Text: 
-  em
-    | [texto cifrado]
+  strong Text:
+  = @message.text.force_encoding('utf-8')
 
 
 => link_to 'Edit', edit_message_path(@message)

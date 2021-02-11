@@ -29,7 +29,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: "Se creó correctamente." }
+        format.html { redirect_to @message, notice: "Copiá el link de tu mensaje: #{message_url(@message)}" }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }
