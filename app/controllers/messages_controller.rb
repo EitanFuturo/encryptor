@@ -61,9 +61,13 @@ class MessagesController < ApplicationController
   end
 
   def decrypt_message
-    password = message_params[:password]
+    password = params[:password]
     encryptor = MessageEncryptor.new
-    encryptor.decrypt(@message.text, 'PasswordTest', @message.iv)
+    @message.text = (encryptor.decrypt(@message.text, password, @message.iv) rescue "Bad decrypt")
+
+    respond_to do | format |
+      format.html { redirect_to @message, notice: "#{@message.text}" }
+    end
   end
 
   private

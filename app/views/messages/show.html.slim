@@ -4,6 +4,14 @@ p
   strong Text:
   = @message.text.force_encoding('utf-8')
 
+#decrypt-form
+  = form_with url: :decrypt_message do |f|
+    =f.hidden_field :id, value: @message.id
+    .field
+      = f.label :password
+      = f.password_field :password
+    .actions
+      = f.submit :submit
 
 => link_to 'Edit', edit_message_path(@message)
 '|
