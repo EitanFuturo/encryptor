@@ -12,3 +12,4 @@ Rails.start()
 ActiveStorage.start()
 
 import "controllers"
+import "nes.css/css/nes.min.css"
