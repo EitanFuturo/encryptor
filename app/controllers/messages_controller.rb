@@ -63,10 +63,10 @@ class MessagesController < ApplicationController
   def decrypt_message
     password = params[:password]
     encryptor = MessageEncryptor.new
-    @message.text = (encryptor.decrypt(@message.text, password, @message.iv) rescue "Bad decrypt")
+    @message.text = (encryptor.decrypt(@message.text, password, @message.iv) rescue "Bad decrypt").force_encoding('utf-8')
 
     respond_to do | format |
-      format.html { redirect_to @message, notice: "#{@message.text}" }
+      format.turbo_stream { }
     end
   end
 
