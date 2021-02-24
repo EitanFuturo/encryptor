@@ -1,21 +1,13 @@
-h1 Listing messages
+section.nes-container.is-dark.with-title.is-centered
+  h1.title ENCRIPTADOR
+  section.message-list
+    section.message.-left
+      .nes-balloon.from-left.is-dark
+        h4 Los mensajes se guardan encriptados con el algoritmo AES (American Encryption Standard), con una clave de 256 bits.
+    section.message.-right
+      .nes-balloon.from-right.is-dark
+        h4 La contraseña utilizada en el cifrado no se guarda. Si la olvidás no hay forma de que puedas desencriptar tu mensaje.
 
-table
-  thead
-    tr
-      th Text
-      th
-      th
-      th
+  br
 
-  tbody
-    - @messages.each do |message|
-      tr
-        td = message.text
-        td = link_to 'Show', message
-        td = link_to 'Edit', edit_message_path(message)
-        td = link_to 'Destroy', message, data: { confirm: 'Are you sure?' }, method: :delete
-
-br
-
-= link_to 'New Message', new_message_path
+  = link_to 'Crear mensaje encriptado', new_message_path, class: "nes-btn is-centered"

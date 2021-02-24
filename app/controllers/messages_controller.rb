@@ -3,7 +3,6 @@ class MessagesController < ApplicationController
 
   # GET /messages or /messages.json
   def index
-    @messages = Message.all
   end
 
   # GET /messages/1 or /messages/1.json
@@ -21,11 +20,8 @@ class MessagesController < ApplicationController
 
   # POST /messages or /messages.json
   def create
-    encrypted_message = encrypt_message(message_params[:text],
-                                        message_params[:password])
-    iv = encrypted_message[:iv]
-    @message = Message.new(text: encrypted_message[:encrypted_message],
-                           iv: iv)
+    @message = Message.new(text: message_params[:text], password: message_params[:password],
+                           confirmed_password: message_params[:confirmed_password])
 
     respond_to do |format|
       if @message.save
@@ -78,12 +74,6 @@ class MessagesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def message_params
-      params.require(:message).permit(:text, :password)
-    end
-
-    def encrypt_message(message, password)
-      encryptor = MessageEncryptor.new
-      encryptor.encrypt(message, password)
-      { encrypted_message: encryptor.encrypted_message, iv: encryptor.iv }
+      params.require(:message).permit(:text, :password, :confirmed_password)
     end
 end

@@ -7,9 +7,12 @@
           li = message
 
   .field
-    = f.label :text
-    = f.text_area :text
+    = f.label "Mensaje"
+    = f.text_area :text, class: "nes-textarea"
   .field
-    = f.label :password
-    = f.text_area :password
-  .actions = f.submit
+    = f.label "Contraseña"
+    = f.password_field :password, class: "nes-input"
+  .field
+    = f.label "Confirmar contraseña"
+    = f.password_field :confirmed_password, class: "nes-input"
+  .actions = f.submit "Guardar mensaje", class: "nes-btn is-centered"
