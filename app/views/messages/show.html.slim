@@ -1,19 +1,23 @@
-= turbo_frame_tag "message"
-  p#notice = notice
-  = render "message"
-  turbo_stream action="update" target="message"
-    template
+section.nes-container.with-title.is-dark.is-centered
+  = turbo_frame_tag "message"
+    - if notice
+      h1.title ¡Importante!
+      section.message.-left
+        i.nes-kirby
+        .nes-balloon.from-left.is-dark
+          p = notice
       = render "message"
+      turbo_stream action="update" target="message"
+        template
+          = render "message"
 
-  #decrypt-form
-    = form_with url: :decrypt_message do |f|
-      =f.hidden_field :id, value: @message.id
-      .field
-        = f.label :password
-        = f.password_field :password
-      .actions
-        = f.submit :submit
+    #decrypt-form.nes-container.is-rounded.is-dark
+      = form_with url: :decrypt_message do |f|
+        =f.hidden_field :id, value: @message.id
+        .field
+          = f.label :password
+          = f.password_field :password
+        .actions
+          = f.submit :submit
 
-=> link_to 'Edit', edit_message_path(@message), class: 'nes-btn is-primary'
-'|
-=< link_to 'Back', messages_path
+  =< link_to 'Back', messages_path, class: 'nes-btn is-default'
