@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: "Copiá el link de tu mensaje: #{message_url(@message)}" }
+        format.html { redirect_to @message, notice: "#{message_url(@message)}" }
         format.json { render :show, status: :created, location: @message }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -59,7 +59,7 @@ class MessagesController < ApplicationController
   def decrypt_message
     password = params[:password]
     encryptor = MessageEncryptor.new
-    @message.text = (encryptor.decrypt(@message.text, password, @message.iv) rescue "Bad decrypt").force_encoding('utf-8')
+    @message.text = (encryptor.decrypt(@message.text, password, @message.iv) rescue "Contraseña inválida").force_encoding('utf-8')
 
     respond_to do | format |
       format.turbo_stream { }

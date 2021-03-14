@@ -1,23 +1,27 @@
 section.nes-container.with-title.is-dark.is-centered
+
   = turbo_frame_tag "message"
     - if notice
       h1.title ¡Importante!
       section.message.-left
-        i.nes-kirby
         .nes-balloon.from-left.is-dark
-          p = notice
-      = render "message"
+          h2 El link a tu mensaje desaparecerá con tu próxima acción.
+      section.message.-right
+        .nes-balloon.from-right.is-dark
+          h3 Guardá el link antes de que desaparezca:
+          h3 = link_to "#{notice}", message_url(@message)
       turbo_stream action="update" target="message"
         template
           = render "message"
 
-    #decrypt-form.nes-container.is-rounded.is-dark
+    #decrypt-form.nes-container.is-rounded.with-title.is-centered.is-dark
+      h1.title Desencriptar mensaje
       = form_with url: :decrypt_message do |f|
         =f.hidden_field :id, value: @message.id
         .field
-          = f.label :password
-          = f.password_field :password
+          = f.label "Contraseña"
+          = f.password_field :password, class: "nes-input"
         .actions
-          = f.submit :submit
+          = f.submit "Desencriptar", class: "nes-btn is-centered"
 
-  =< link_to 'Back', messages_path, class: 'nes-btn is-default'
+  =< link_to 'Encriptar nuevo mensaje', messages_path, class: 'nes-btn is-default'
