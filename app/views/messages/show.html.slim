@@ -3,16 +3,17 @@ section.nes-container.with-title.is-dark.is-centered
   = turbo_frame_tag "message"
     - if notice
       h1.title ¡Importante!
-      section.message.-left
-        .nes-balloon.from-left.is-dark
-          h2 El link a tu mensaje desaparecerá con tu próxima acción.
-      section.message.-right
-        .nes-balloon.from-right.is-dark
-          h3 Guardá el link antes de que desaparezca:
-          h3 = link_to "#{notice}", message_url(@message)
-      turbo_stream action="update" target="message"
-        template
-          = render "message"
+      section.message-list
+        section.message.-left
+          .nes-balloon.from-left.is-dark
+            h3.wrapped-text El link a tu mensaje desaparecerá con tu próxima acción.
+        section.message.-right
+          .nes-balloon.from-right.is-dark
+            h4 Guardá el link antes de que desaparezca:
+            h4.wrapped-text = link_to "#{notice}", message_url(@message)
+    turbo_stream action="update" target="message"
+      template
+        = render "message"
 
     #decrypt-form.nes-container.is-rounded.with-title.is-centered.is-dark
       h1.title Desencriptar mensaje

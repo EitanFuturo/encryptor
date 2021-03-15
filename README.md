@@ -1,24 +1,17 @@
-# README
+# Encryptor
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+#### Try the [encryptor](encryptor.eitanfuturo.com) now on [encryptor.eitanfuturo.com](encryptor.eitanfuturo.com)
 
-Things you may want to cover:
+---
 
-* Ruby version
+The app uses the AES (American Encryption Standard) algorithm with a 256 bit key to encrypt messages.
 
-* System dependencies
+---
 
-* Configuration
+#### Technologies:
+* Rails 6.1
+* Ruby 3.0
+* Hotwire
+* PostgreSQL
 
-* Database creation
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
