@@ -16,6 +16,5 @@ describe MessageEncryptor do
   it 'returns invalid password message when password is not correct' do
     decrypted_message = subject.decrypt(message.text, password.reverse, message.iv)
     expect(decrypted_message).to eq "Contraseña inválida"
-    true
   end
 end
