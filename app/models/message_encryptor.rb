@@ -15,10 +15,14 @@ class MessageEncryptor
   end
 
   def decrypt(message, password, iv)
-    cipher.decrypt
-    cipher.key = Digest::SHA256.digest(password)
-    cipher.iv = iv
-    decrypted_message = cipher.update(message) + cipher.final
-    decrypted_message.force_encoding('utf-8')
+    begin
+      cipher.decrypt
+      cipher.key = Digest::SHA256.digest(password)
+      cipher.iv = iv
+      decrypted_message = cipher.update(message) + cipher.final
+      decrypted_message.force_encoding('utf-8')
+    rescue
+      "Contraseña inválida"
+    end
   end
 end
