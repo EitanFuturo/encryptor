@@ -59,7 +59,7 @@ class MessagesController < ApplicationController
   def decrypt_message
     password = params[:password]
     encryptor = MessageEncryptor.new
-    @message.text = (encryptor.decrypt(@message.text, password, @message.iv) rescue "Contraseña inválida").force_encoding('utf-8')
+    @message.text = encryptor.decrypt(@message.text, password, @message.iv).force_encoding('utf-8')
 
     respond_to do | format |
       format.turbo_stream { }

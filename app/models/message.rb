@@ -1,5 +1,6 @@
 class Message < ApplicationRecord
   attr_accessor :password, :confirmed_password
+
   validate :confirm_passwords
   before_save :encrypt_message
 
@@ -9,6 +10,7 @@ class Message < ApplicationRecord
   end
 
   private
+
   def confirm_passwords
     errors.add(:confirmed_password, "Las contraseñas no coinciden.") if password != confirmed_password
   end
