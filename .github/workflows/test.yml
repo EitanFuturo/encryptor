@@ -41,6 +41,8 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Run tests
+      env:
+        POSTGRES_PASSWORD: postgres
       run: |
         sudo apt-get -yqq install libpq-dev
         gem install bundler
