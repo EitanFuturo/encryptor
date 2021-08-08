@@ -43,8 +43,8 @@ jobs:
     - name: Run tests
       env:
         POSTGRES_PASSWORD: postgres
-        DATABASE_URL: postgres://postgres:@localhost:5432/test
-        RAILS_ENV: encryptor_test
+        DATABASE_URL: postgres://postgres:@localhost:5432/encryptor_test
+        RAILS_ENV: test
       run: |
         sudo apt-get -yqq install libpq-dev
         gem install bundler
