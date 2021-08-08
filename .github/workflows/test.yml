@@ -47,9 +47,7 @@ jobs:
         DATABASE_URL: postgres://postgres:@localhost:5432/encryptor_test
         RAILS_ENV: test
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        DATABASE_USER_NAME: ${{ secrets.DATABASE_USER_NAME }}
-        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-
+        POSTGRES_PASSWORD: postgres
       run: |
         gem install bundler
         bundle install --jobs 4 --retry 3
