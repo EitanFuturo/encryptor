@@ -47,6 +47,8 @@ jobs:
         DATABASE_URL: postgres://postgres:@localhost:5432/encryptor_test
         RAILS_ENV: test
         RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        DATABASE_USER_NAME: ${{ secrets.DATABASE_USER_NAME }}
+        DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
       run: |
         sudo apt-get -yqq install libpq-dev
