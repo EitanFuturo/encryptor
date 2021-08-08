@@ -22,7 +22,7 @@ jobs:
         ruby-version: ['3.0.0']
     services:
       db:
-        image: postgres:11
+        image: postgres:12
         ports: ['5432:5432']
         options: >-
           --health-cmd pg_isready
