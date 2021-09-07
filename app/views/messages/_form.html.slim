@@ -15,4 +15,9 @@
   .field
     = f.label "Confirmar contraseña"
     = f.password_field :confirmed_password, class: "nes-input"
+  .field
+    = check_box_tag :show_recipient, "yes", false
+    span style="padding: 0 10px" Enviar link por correo
+  .field
+    = text_field_tag "message[email_recipient]", nil, class: "nes-input", placeholder: "bill@evans.com"
   .actions = f.submit "Guardar mensaje", class: "nes-btn is-centered"
