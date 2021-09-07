@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        send_email(message_params[:email_recipient]) if message_params[:email_recipient]
+        send_email(message_url(@message), message_params[:email_recipient]) if message_params[:email_recipient]
 
         format.html { redirect_to @message, notice: "#{message_url(@message)}" }
         format.json { render :show, status: :created, location: @message }
@@ -79,7 +79,7 @@ class MessagesController < ApplicationController
       params.require(:message).permit(:text, :password, :confirmed_password, :email_recipient)
     end
 
-    def send_email(recipient)
-
+    def send_email(message_url, recipient)
+      MessageMailer.with(message_url: message_url, recipient: recipient).share_message.deliver_now
     end
 end
