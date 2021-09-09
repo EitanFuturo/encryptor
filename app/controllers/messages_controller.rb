@@ -25,7 +25,7 @@ class MessagesController < ApplicationController
 
     respond_to do |format|
       if @message.save
-        send_email(message_url(@message), message_params[:email_recipient]) if message_params[:email_recipient]
+        send_email(message_url(@message), message_params[:email_recipient]) if message_params[:email_recipient].present?
 
         format.html { redirect_to @message, notice: "#{message_url(@message)}" }
         format.json { render :show, status: :created, location: @message }
