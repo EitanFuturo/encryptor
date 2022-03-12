@@ -80,6 +80,6 @@ class MessagesController < ApplicationController
     end
 
     def send_email(message_url, recipient)
-      MessageMailer.with(message_url: message_url, recipient: recipient).share_message.deliver_now
+      MessageMailer.with(message_url: message_url, recipient: recipient).share_message.deliver_later
     end
 end
